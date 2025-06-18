@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results ignored="0" total="1" passed="1" failed="0" skipped="0">
+  <reporter-output>
+  </reporter-output>
+  <suite started-at="2025-06-18T22:58:18 IST" name="Salesforce Suite" finished-at="2025-06-18T22:58:24 IST" duration-ms="6754">
+    <groups>
+    </groups>
+    <test started-at="2025-06-18T22:58:18 IST" name="Login Test" finished-at="2025-06-18T22:58:24 IST" duration-ms="6754">
+      <class name="projectself.tests.LoginTest">
+        <test-method is-config="true" signature="setup()[pri:0, instance:projectself.tests.LoginTest@4d9ac0b4]" started-at="2025-06-18T22:58:18 IST" name="setup" finished-at="2025-06-18T22:58:20 IST" duration-ms="1982" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setup -->
+        <test-method signature="verifyValidLogin()[pri:1, instance:projectself.tests.LoginTest@4d9ac0b4]" started-at="2025-06-18T22:58:20 IST" name="verifyValidLogin" description="Verify that valid login works in Salesforce" finished-at="2025-06-18T22:58:24 IST" duration-ms="4464" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- verifyValidLogin -->
+        <test-method is-config="true" signature="teardown()[pri:0, instance:projectself.tests.LoginTest@4d9ac0b4]" started-at="2025-06-18T22:58:24 IST" name="teardown" finished-at="2025-06-18T22:58:24 IST" duration-ms="185" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- teardown -->
+      </class> <!-- projectself.tests.LoginTest -->
+    </test> <!-- Login Test -->
+  </suite> <!-- Salesforce Suite -->
+</testng-results>
