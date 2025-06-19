@@ -69,7 +69,7 @@ public class BaseTest {
     @AfterMethod(alwaysRun = true)
     public void teardown() {
         if (driver != null) {
-            driver.quit();  // changed from close() to quit() for full cleanup
+            //driver.quit();  // changed from close() to quit() for full cleanup
         }
     }
 
