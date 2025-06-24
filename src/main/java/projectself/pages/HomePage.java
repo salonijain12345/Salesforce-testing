@@ -17,7 +17,8 @@ public class HomePage {
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(20)); // Use Duration
     }
     private final By spinner = By.xpath("//lightning-spinner");
-    private By userMenu = By.xpath("//span[@class='userProfileCardTriggerRoot']");
+    private By userMenu = By.xpath("//div[contains(@class, 'profileTrigger') or contains(@class, 'userProfileCardTriggerRoot')]");
+
     //private By appLauncher = By.xpath("//div[@role='navigation']//button[@title='App Launcher']");
     private By oppTab = By.cssSelector("a[title='Opportunities']");
     private final By appLauncher = By.xpath("//div[@role='navigation']//button[@title='App Launcher']");
