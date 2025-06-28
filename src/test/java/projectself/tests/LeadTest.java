@@ -23,16 +23,7 @@ public class LeadTest extends BaseTest {
         LoginPage login = new LoginPage(driver);
         login.login(prop.getProperty("username"), prop.getProperty("password"));
         Thread.sleep(4000);
-        try {
-            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-            // Update XPath if needed after inspecting the button
-            By allowButton = By.xpath("//button[contains(text(),'Allow')]");
-            
-            wait.until(ExpectedConditions.elementToBeClickable(allowButton)).click();
-            System.out.println("Clicked the Allow button.");
-        } catch (TimeoutException e) {
-            System.out.println("Allow button not found — no pop-up appeared.");
-        }
+        
         // Step 2: Navigate to Leads tab
         LeadPage leadPage = new LeadPage(driver);
         leadPage.goToLeadsTab();

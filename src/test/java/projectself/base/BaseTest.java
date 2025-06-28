@@ -47,6 +47,7 @@ public class BaseTest {
             }
 
             driver = new ChromeDriver(options);
+            WebDriverManager.chromedriver().browserVersion("137.0.7151.120").setup();
             driver.manage().window().setSize(new Dimension(1440, 900));
 
         } else if (browserName.equalsIgnoreCase("firefox")) {

@@ -30,18 +30,18 @@ public class HomePage {
     }
 
     public void goToSales() throws InterruptedException {
-    	driver.findElement(appLauncher).click();
-        Thread.sleep(2000);
+    	 driver.findElement(appLauncher).click();
+    	    Thread.sleep(2000);
 
-        driver.findElement(viewAll).click();
-        Thread.sleep(2000);
+    	    driver.findElement(viewAll).click();
+    	    Thread.sleep(2000);
+    	    //driver.findElement(searchAppInput).click();
+    	    driver.findElement(searchAppInput).sendKeys("Sales");
+    	    
+    	    Thread.sleep(2000);
 
-        driver.findElement(searchAppInput).sendKeys("Sales");
-        Thread.sleep(1000);
-
-        driver.findElement(salesApp).click();
-        Thread.sleep(2000); // Let Sales app load
-    }
+    	    driver.findElement(salesApp).click();
+    	    Thread.sleep(3000);    }
 
    
 }

@@ -19,7 +19,7 @@ private final By searchAppInput = By.xpath("//input[@placeholder='Search apps or
 private final By salesApp = By.xpath("//p[normalize-space()='Sales']/ancestor::a");
 private final By leadsTab = By.xpath("//a[@title='Leads']");
 // Locators for creating a lead
-private final By newButton = By.xpath("//button[@class='slds-button slds-button_neutral slds-button_first'][@name='New']");
+private final By newButton = By.xpath("//div[@title=\"New\"]");
 private final By lastNameInput = By.xpath("//input[@placeholder='Last Name']");
 private final By companyInput = By.xpath("//input[@name='Company']");
 private final By saveButton = By.xpath("//button[@name='SaveEdit']");
@@ -59,7 +59,8 @@ public void goToLeadsTab() throws InterruptedException {
 
 // Method to create a new lead
 public void createNewLead(String lastName, String company) throws InterruptedException {
-    driver.findElement(newButton).click();
+	Thread.sleep(3000);
+	driver.findElement(newButton).click();
     Thread.sleep(2000);
 
     driver.findElement(lastNameInput).sendKeys(lastName);
