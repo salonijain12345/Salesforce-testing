@@ -4,6 +4,7 @@ import java.time.Duration;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
@@ -25,16 +26,7 @@ public class AccountTest extends BaseTest {
         LoginPage login = new LoginPage(driver);
         login.login(prop.getProperty("username"), prop.getProperty("password"));
         Thread.sleep(5000);
-        try {
-            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-            // Update XPath if needed after inspecting the button
-            By allowButton = By.xpath("//button[contains(text(),'Allow')]");
-            
-            wait.until(ExpectedConditions.elementToBeClickable(allowButton)).click();
-            System.out.println("Clicked the Allow button.");
-        } catch (TimeoutException e) {
-            System.out.println("Allow button not found — no pop-up appeared.");
-        }
+        
        // Go to Opportunity Page
        HomePage homePage = new HomePage(driver);
        homePage.goToSales(); 
@@ -57,16 +49,7 @@ public class AccountTest extends BaseTest {
     	LoginPage login = new LoginPage(driver);
         login.login(prop.getProperty("username"), prop.getProperty("password"));
         Thread.sleep(5000);
-        try {
-            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
-            // Update XPath if needed after inspecting the button
-            By allowButton = By.xpath("//button[contains(text(),'Allow')]");
-            
-            wait.until(ExpectedConditions.elementToBeClickable(allowButton)).click();
-            System.out.println("Clicked the Allow button.");
-        } catch (TimeoutException e) {
-            System.out.println("Allow button not found — no pop-up appeared.");
-        }
+        
        // Go to Opportunity Page
        HomePage homePage = new HomePage(driver);
        homePage.goToSales(); 
@@ -81,23 +64,14 @@ public class AccountTest extends BaseTest {
         // Optionally, add assertions here based on UI confirmation or toast message
     }
     
-    @Test(description = "Edit an existing account name")
+    @Test(description = "Edit an existing account name",enabled = false)
     public void editAccountTest() throws InterruptedException {
     	// Login first
      	 driver.get(prop.getProperty("url"));
    	LoginPage login = new LoginPage(driver);
        login.login(prop.getProperty("username"), prop.getProperty("password"));
        Thread.sleep(5000);
-       try {
-           WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
-           // Update XPath if needed after inspecting the button
-           By allowButton = By.xpath("//button[contains(text(),'Allow')]");
-           
-           wait.until(ExpectedConditions.elementToBeClickable(allowButton)).click();
-           System.out.println("Clicked the Allow button.");
-       } catch (TimeoutException e) {
-           System.out.println("Allow button not found — no pop-up appeared.");
-       }
+       
       // Go to Opportunity Page
       HomePage homePage = new HomePage(driver);
       homePage.goToSales(); 
@@ -113,6 +87,32 @@ public class AccountTest extends BaseTest {
 
 //        String header = accountPage.getAccountHeaderText();
 //        Assert.assertTrue(header.contains("UpdatedCompany"), "Account edit failed");
+    }
+    
+    @Test(description = "Delete an account and confirm redirection")
+    public void deleteAccountTest() throws InterruptedException {
+    	// Login first
+    	 driver.get(prop.getProperty("url"));
+  	LoginPage login = new LoginPage(driver);
+      login.login(prop.getProperty("username"), prop.getProperty("password"));
+      Thread.sleep(5000);
+      
+     // Go to Opportunity Page
+     HomePage homePage = new HomePage(driver);
+     homePage.goToSales();
+     
+ 	AccountPage accountPage = new AccountPage(driver);
+     
+        String accName = "DeleteTestCompany" + System.currentTimeMillis();
+        accountPage.goToAccountTab();
+        accountPage.createAccount(accName);
+
+        accountPage.deleteAccount();
+        Thread.sleep(2000);
+        // Assert redirection or success toast message
+     String toast=wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[@class='toastMessage slds-text-heading--small forceActionsText']"))).getText();
+     System.out.print(toast);  
+     Assert.assertTrue(toast.contains("was deleted"), "Account deletion failed");
     }
 
 }

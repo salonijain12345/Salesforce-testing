@@ -91,5 +91,10 @@ public class AccountPage {
         nameField.sendKeys(newAccountName);
         driver.findElement(By.xpath("//button[@name='SaveEdit']")).click();
     }
+    public void deleteAccount() {
+    	wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@class='slds-button slds-button_icon-border-filled fix-slds-button_icon-border-filled slds-button_last']"))).click();
+    	wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//a//span[text()='Delete']"))).click();
+    	wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button//span[text()='Delete']"))).click();
+    }
 
 }

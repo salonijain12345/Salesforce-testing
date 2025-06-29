@@ -15,6 +15,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.time.Duration;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Properties;
 
 public class BaseTest {
@@ -37,6 +39,11 @@ public class BaseTest {
 
         if (browserName.contains("chrome")) {
             ChromeOptions options = new ChromeOptions();
+            
+            Map<String, Object> prefs = new HashMap<>();
+            prefs.put("profile.default_content_setting_values.notifications", 1);
+            options.setExperimentalOption("prefs", prefs);
+            
             WebDriverManager.chromedriver().setup();
 
             if (browserName.contains("headless")) {
@@ -70,7 +77,7 @@ public class BaseTest {
     @AfterMethod(alwaysRun = true)
     public void teardown() {
         if (driver != null) {
-            //driver.quit();  // changed from close() to quit() for full cleanup
+            driver.quit();  // changed from close() to quit() for full cleanup
         }
     }
 
