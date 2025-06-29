@@ -102,7 +102,7 @@ public class AccountTest extends BaseTest {
      homePage.goToSales();
      
  	AccountPage accountPage = new AccountPage(driver);
-     //delete account
+     //delete account asa
         String accName = "DeleteTestCompany" + System.currentTimeMillis();
         accountPage.goToAccountTab();
         accountPage.createAccount(accName);
