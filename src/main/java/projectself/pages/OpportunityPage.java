@@ -1,6 +1,5 @@
 package projectself.pages;
 
-<<<<<<< HEAD
 import java.time.Duration;
 
 import org.openqa.selenium.By;
@@ -20,84 +19,54 @@ public class OpportunityPage {
     private final By newButton = By.xpath("//div[@title='New']");
     private final By opportunityNameField = By.xpath("//input[@name='Name']");
     private final By closeDateField = By.xpath("//input[@name='CloseDate']");
-    private final By stageDropdown = By.xpath("//button[@aria-label='Stage, --None--']");
-    private final By stageValue = By.xpath("//span[@title='Qualification']");
+    private final By stageDropdown = By.xpath("//button[contains(@aria-label,'Stage')]");
+    private final By stageValue = By.xpath("//lightning-base-combobox-item//span[@class='slds-media__body']//span[text()='Qualification']");
     private final By saveButton = By.xpath("//button[@name='SaveEdit']");
-    By spinner = By.cssSelector("lightning-spinner");
+    private final By opportunityNameHeader = By.xpath("//lightning-formatted-text[contains(@class,'custom-truncate')]");
+    private final By spinner = By.cssSelector("lightning-spinner");
+
     // Constructor
     public OpportunityPage(WebDriver driver) {
         this.driver = driver;
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(20));
     }
 
-    // Actions
+    // Navigate to Opportunity tab
     public void goToOpportunityTab() throws InterruptedException {
-    	wait.until(ExpectedConditions.invisibilityOfElementLocated(spinner));
-    	//wait.until(ExpectedConditions.elementToBeClickable(opportunityTab)).click();
-    	WebElement leadsTabElement = wait.until(ExpectedConditions.elementToBeClickable(opportunityTab));
-    	try {
-    	     leadsTabElement.click();
-    	 } catch (Exception e) {
-    	     ((JavascriptExecutor) driver).executeScript("arguments[0].click();", leadsTabElement);
-    	 }
-    	    Thread.sleep(3000);
-    	}
-    
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(spinner));
+        WebElement oppTabElement = wait.until(ExpectedConditions.elementToBeClickable(opportunityTab));
+        try {
+            oppTabElement.click();
+        } catch (Exception e) {
+            ((JavascriptExecutor) driver).executeScript("arguments[0].click();", oppTabElement);
+        }
+        Thread.sleep(3000);
+    }
 
+    // Click 'New' button
     public void clickNewButton() {
         wait.until(ExpectedConditions.elementToBeClickable(newButton)).click();
     }
 
+    // Fill in Opportunity form
     public void enterOpportunityDetails(String oppName, String closeDate) {
         wait.until(ExpectedConditions.visibilityOfElementLocated(opportunityNameField)).sendKeys(oppName);
         driver.findElement(closeDateField).sendKeys(closeDate);
 
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+        WebElement stage = wait.until(ExpectedConditions.elementToBeClickable(stageDropdown));
+        stage.click();
 
-     // Step 1: Wait for the Stage dropdown to be clickable
-     By stageDropdown = By.xpath("//button[contains(@aria-label,'Stage')]");
-     WebElement stage = wait.until(ExpectedConditions.elementToBeClickable(stageDropdown));
-     stage.click();
-
-     // Step 2: Wait for the specific Stage value to be clickable
-     By stageValue = By.xpath("//lightning-base-combobox-item//span[@class='slds-media__body']//span[text()='Qualification']");  // Example value
-     WebElement stageOption = wait.until(ExpectedConditions.elementToBeClickable(stageValue));
-     stageOption.click();
-
+        WebElement stageOption = wait.until(ExpectedConditions.elementToBeClickable(stageValue));
+        stageOption.click();
     }
 
+    // Click Save
     public void clickSave() {
         driver.findElement(saveButton).click();
-=======
-import org.openqa.selenium.*;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-
-public class OpportunityPage {
-    WebDriver driver;
-    WebDriverWait wait;
-
-    public OpportunityPage(WebDriver driver, WebDriverWait wait) {
-        this.driver = driver;
-        this.wait = wait;
     }
 
-    public void goToOpportunities() {
-        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//a[@title='Opportunities']"))).click();
-    }
-
-    public void createOpportunity(String name, String stage, String date) {
-        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[@title='New']"))).click();
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@name='Name']"))).sendKeys(name);
-        driver.findElement(By.xpath("//input[@name='CloseDate']")).sendKeys(date);
-        driver.findElement(By.xpath("//button[@aria-label='Stage, --None--']")).click();
-        driver.findElement(By.xpath("//span[@title='" + stage + "']")).click();
-        driver.findElement(By.xpath("//button[@name='SaveEdit']")).click();
-    }
-
+    // Verify opportunity is created
     public boolean verifyOpportunityCreated(String name) {
-        return wait.until(ExpectedConditions.textToBePresentInElementLocated(
-                By.xpath("//lightning-formatted-text[contains(@class,'custom-truncate')]"), name));
->>>>>>> ef976e4 (Initial Salesforce CRM automation framework setup with login test)
+        return wait.until(ExpectedConditions.textToBePresentInElementLocated(opportunityNameHeader, name));
     }
 }

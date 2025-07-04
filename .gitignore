@@ -1,7 +1,14 @@
-target/
+# Ignore build/test artifacts
 test-output/
 allure-results/
+target/
 *.log
-*.class
+
+# IDE files
 *.iml
+.idea/
+*.class
+
+# OS-generated
 .DS_Store
+Thumbs.db
