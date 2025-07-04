@@ -95,6 +95,7 @@ public class ContactPage {
 
     }
     
+    
     // ====== Search Contact ======
     public boolean searchContact(String contactName) {
         try {

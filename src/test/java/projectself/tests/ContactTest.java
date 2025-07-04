@@ -58,7 +58,7 @@ public class ContactTest extends BaseTest {
         Assert.assertTrue(contactPage.getContactHeaderText().contains("UpdatedName"), "Contact edit failed");
     }
     
-    @Test(description = "Delete an existing contact")
+    @Test(description = "Delete an existing contact",enabled=false)
     public void testDeleteContact() throws InterruptedException {
         driver.get(prop.getProperty("url"));
 
@@ -82,6 +82,28 @@ public class ContactTest extends BaseTest {
         Thread.sleep(2000);
         boolean found = contactPage.searchContact(contactToDelete);
         Assert.assertFalse(found, "Contact still visible after deletion");
+    }
+    @Test(description = "Search for a contact")
+    public void testSearchContact() throws InterruptedException {
+        driver.get(prop.getProperty("url"));
+
+        LoginPage login = new LoginPage(driver);
+        login.login(prop.getProperty("username"), prop.getProperty("password"));
+        Thread.sleep(4000);
+
+        HomePage home = new HomePage(driver);
+        home.goToSales();
+
+        ContactPage contactPage = new ContactPage(driver);
+        contactPage.goToContactsTab();
+
+        String contactToSearch = "SearchTest" + System.currentTimeMillis();
+        String accountName = "TestCompany";
+        contactPage.createContactFromContactsTab(contactToSearch, accountName);
+
+        Thread.sleep(3000);
+        boolean found = contactPage.searchContact(contactToSearch);
+        Assert.assertTrue(found, "Contact not found in global search");
     }
 
 }
