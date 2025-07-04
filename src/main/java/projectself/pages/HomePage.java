@@ -1,8 +1,10 @@
 package projectself.pages;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -30,10 +32,16 @@ public class HomePage {
     }
 
     public void goToSales() throws InterruptedException {
-    	 driver.findElement(appLauncher).click();
+    	Thread.sleep(3000);
+    	driver.findElement(appLauncher).click();
     	    Thread.sleep(2000);
 
-    	    driver.findElement(viewAll).click();
+    	    
+
+    	 // Click using JavaScript
+    	    JavascriptExecutor js = (JavascriptExecutor) driver;
+    	    WebElement viewAllButton = driver.findElement(By.xpath("//button[text()='View All']"));
+    	    js.executeScript("arguments[0].click();", viewAllButton);
     	    Thread.sleep(2000);
     	    //driver.findElement(searchAppInput).click();
     	    driver.findElement(searchAppInput).sendKeys("Sales");

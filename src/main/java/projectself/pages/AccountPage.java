@@ -2,6 +2,7 @@ package projectself.pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -95,6 +96,38 @@ public class AccountPage {
     	wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@class='slds-button slds-button_icon-border-filled fix-slds-button_icon-border-filled slds-button_last']"))).click();
     	wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//a//span[text()='Delete']"))).click();
     	wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button//span[text()='Delete']"))).click();
+    }
+    public boolean searchAccount(String accountName) {
+    	
+    	try {
+            // Step 1: Click the Search Button (on Header)
+            WebElement searchBtn = wait.until(ExpectedConditions.elementToBeClickable(
+                    By.xpath("//button[contains(@class,'search-button') and @aria-label='Search']")));
+            ((JavascriptExecutor) driver).executeScript("arguments[0].click();", searchBtn);
+            System.out.println("✅ Search button clicked");
+
+            // Step 2: Wait for the input box inside global search modal
+            WebElement inputBox = wait.until(ExpectedConditions.visibilityOfElementLocated(
+                    By.xpath("//input[@type='search' and contains(@class,'slds-input') and @placeholder='Search...']")));
+            ((JavascriptExecutor) driver).executeScript("arguments[0].focus();", inputBox);
+            //inputBox.clear();
+            inputBox.sendKeys(accountName);
+            inputBox.sendKeys(Keys.ENTER);
+            System.out.println("✅ Entered search term: " + accountName);
+
+            // Step 3: Wait for result (you can update the XPath to suit result UI)
+            By resultLocator = By.xpath("//a[contains(text(),'" + accountName + "')]");
+            wait.until(ExpectedConditions.visibilityOfElementLocated(resultLocator));
+            return true;
+
+        } catch (TimeoutException te) {
+            System.out.println("❌ Element not found in time: " + te.getMessage());
+            return false;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
 }

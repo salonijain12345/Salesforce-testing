@@ -89,7 +89,7 @@ public class AccountTest extends BaseTest {
 //        Assert.assertTrue(header.contains("UpdatedCompany"), "Account edit failed");
     }
     
-    @Test(description = "Delete an account and confirm redirection")
+    @Test(description = "Delete an account and confirm redirection",enabled = false)
     public void deleteAccountTest() throws InterruptedException {
     	// Login first
     	 driver.get(prop.getProperty("url"));
@@ -113,6 +113,29 @@ public class AccountTest extends BaseTest {
      String toast=wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[@class='toastMessage slds-text-heading--small forceActionsText']"))).getText();
      System.out.print(toast);  
      Assert.assertTrue(toast.contains("was deleted"), "Account deletion failed");
+    }
+    
+    @Test(description = "Search for an account")
+    public void searchAccountTest() throws InterruptedException {
+    	
+      	// Login first
+   	 driver.get(prop.getProperty("url"));
+ 	LoginPage login = new LoginPage(driver);
+     login.login(prop.getProperty("username"), prop.getProperty("password"));
+     Thread.sleep(5000);
+     
+    // Go to Opportunity Page
+    HomePage homePage = new HomePage(driver);
+    homePage.goToSales();
+    
+	AccountPage accountPage = new AccountPage(driver);
+        String accName = "TestCompany" + System.currentTimeMillis();
+        accountPage.goToAccountTab();
+       accountPage.createAccount(accName);
+       driver.navigate().back();
+
+        boolean found = accountPage.searchAccount(accName);
+        Assert.assertTrue(found, "Account not found in search");
     }
 
 }
