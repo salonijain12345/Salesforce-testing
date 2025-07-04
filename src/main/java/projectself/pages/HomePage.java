@@ -1,6 +1,7 @@
 package projectself.pages;
 
 import org.openqa.selenium.By;
+<<<<<<< HEAD
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
@@ -10,10 +11,17 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
+=======
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+>>>>>>> ef976e4 (Initial Salesforce CRM automation framework setup with login test)
 public class HomePage {
     WebDriver driver;
     WebDriverWait wait;
 
+<<<<<<< HEAD
     public HomePage(WebDriver driver) {
         this.driver = driver;
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(20)); // Use Duration
@@ -27,10 +35,22 @@ public class HomePage {
     private final By viewAll = By.xpath("//button[text()='View All']");
     private final By searchAppInput = By.xpath("//input[@placeholder='Search apps or items...']");
     private final By salesApp = By.xpath("//p[normalize-space()='Sales']/ancestor::a");
+=======
+    public HomePage(WebDriver driver, WebDriverWait wait) {
+        this.driver = driver;
+        this.wait = wait;
+    }
+
+    private By userMenu = By.xpath("//span[@class='userProfileCardTriggerRoot']");
+    private By appLauncher = By.cssSelector("div.slds-icon-waffle");
+    private By oppTab = By.cssSelector("a[title='Opportunities']");
+
+>>>>>>> ef976e4 (Initial Salesforce CRM automation framework setup with login test)
     public boolean isHomePageDisplayed() {
         return wait.until(ExpectedConditions.visibilityOfElementLocated(userMenu)).isDisplayed();
     }
 
+<<<<<<< HEAD
     public void goToSales() throws InterruptedException {
     	Thread.sleep(3000);
     	driver.findElement(appLauncher).click();
@@ -53,3 +73,14 @@ public class HomePage {
 
    
 }
+=======
+    public void goToOpportunities() {
+        wait.until(ExpectedConditions.elementToBeClickable(oppTab)).click();
+    }
+
+    public void openAppLauncher() {
+        wait.until(ExpectedConditions.elementToBeClickable(appLauncher)).click();
+    }
+}
+
+>>>>>>> ef976e4 (Initial Salesforce CRM automation framework setup with login test)
