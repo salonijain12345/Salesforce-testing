@@ -24,8 +24,8 @@ public class ReportsPage {
     private By saveBtn = By.xpath("//button[@title='Save']");
     private By reportNameField = By.xpath("//div[@class='panelItemGroup leftPanelItems']");
     private By saveAndRunBtn = By.xpath("//button[text()='Save & Run']");
-    private By reportHeader = By.cssSelector("h1[class*='reportName']");
-    private By reportname= By.xpath("//div[@class='header-renderables']");
+    private By reportHeader = By.xpath("//h1//span[@class='slds-page-header__title slds-truncate']");
+    private By reportname= By.xpath("//input[@id='reportName']");
     private By close = By.xpath("//button[@title='Close' and contains(@class,'slds-modal__close')][2]");
     public void goToReportsTab() {
         WebElement tab = wait.until(ExpectedConditions.elementToBeClickable(reportsTab));
@@ -51,17 +51,27 @@ public class ReportsPage {
        //wait.until(ExpectedConditions.elementToBeClickable(close)).click();
        wait.until(ExpectedConditions.visibilityOfElementLocated(searchReportTypeInput)).sendKeys("Accounts");
          wait.until(ExpectedConditions.elementToBeClickable(contactsReportType)).click();
-//        wait.until(ExpectedConditions.elementToBeClickable(continueBtn)).click();
-//        wait.until(ExpectedConditions.elementToBeClickable(continueBtn)).click();
+
         wait.until(ExpectedConditions.elementToBeClickable(startBtn)).click();
-       // wait.until(ExpectedConditions.elementToBeClickable(saveBtn)).click();
         Thread.sleep(3000);
-//        wait.until(ExpectedConditions.visibilityOfElementLocated(reportNameField)).click();
-//        wait.until(ExpectedConditions.visibilityOfElementLocated(reportname)).sendKeys(reportName);
+       
+        
         wait.until(ExpectedConditions.elementToBeClickable(saveAndRunBtn)).click();
+           
+        wait.until(ExpectedConditions.visibilityOfElementLocated(reportname)).sendKeys(reportName);
+    driver.findElement(By.xpath("//*[@id='report-main']/div/div[7]/div/div/section/div/footer/button[2]")).click();
     }
 
     public String getReportHeader() {
-        return wait.until(ExpectedConditions.visibilityOfElementLocated(reportHeader)).getText();
+    	   driver.switchTo().defaultContent();
+
+    	    // Switch to the report viewer iframe
+    	    wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(
+    	        By.cssSelector("iframe[title='Report Viewer']")
+    	    ));
+
+    	    // Now wait for the report header to be visible and return its text
+    	    WebElement header = wait.until(ExpectedConditions.visibilityOfElementLocated(reportHeader));
+    	    return header.getText();
     }
 }
