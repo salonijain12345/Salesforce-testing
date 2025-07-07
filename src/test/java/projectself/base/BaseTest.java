@@ -77,7 +77,7 @@ public class BaseTest {
     @AfterMethod(alwaysRun = true)
     public void teardown() {
         if (driver != null) {
-            driver.quit();  // Full browser and driver session cleanup
+            //driver.quit();  // Full browser and driver session cleanup
         }
     }
 

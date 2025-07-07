@@ -20,8 +20,9 @@ public class HomePage {
     }
 
     private final By spinner = By.xpath("//lightning-spinner");
-    private final By userMenu = By.xpath("//div[contains(@class, 'profileTrigger') or contains(@class, 'userProfileCardTriggerRoot')]");
-    private final By appLauncher = By.xpath("//div[@role='navigation']//button[@title='App Launcher']");
+   private final By userMenu = By.xpath("//div[contains(@class, 'profileTrigger') or contains(@class, 'userProfileCardTriggerRoot')]");
+   private final By permission = By.xpath("//span[@class='breadcrumbDetail uiOutputText' and text()='Permission Sets']");
+   private final By appLauncher = By.xpath("//div[@role='navigation']//button[@title='App Launcher']");
     private final By viewAll = By.xpath("//button[text()='View All']");
     private final By searchAppInput = By.xpath("//input[@placeholder='Search apps or items...']");
     private final By salesApp = By.xpath("//p[normalize-space()='Sales']/ancestor::a");
@@ -32,6 +33,7 @@ public class HomePage {
     }
 
     public void goToSales() throws InterruptedException {
+    	wait.until(ExpectedConditions.visibilityOfElementLocated(permission)).isDisplayed();
         Thread.sleep(3000);
         driver.findElement(appLauncher).click();
         Thread.sleep(2000);
