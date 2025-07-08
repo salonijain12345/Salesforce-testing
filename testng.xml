@@ -1,9 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
-<suite name="Salesforce Suite">
-  <test name="Login Test">
+<suite name="Salesforce Functional Test Suite" verbose="1" parallel="false">
+  
+  <test name="Full Regression Tests">
     <classes>
+
+      <!-- Authentication Tests -->
       <class name="projectself.tests.LoginTest"/>
+      <class name="projectself.tests.LogoutTest"/>
+
+      <!-- Functional CRM Tests -->
+      <class name="projectself.tests.AccountTest"/>
+      <class name="projectself.tests.ContactTest"/>
+      <class name="projectself.tests.OpportunityTest"/>
+      <class name="projectself.tests.CaseTest"/>
+      <class name="projectself.tests.TaskTest"/>
+      <class name="projectself.tests.ReportsTest"/>
+      <class name="projectself.tests.DashboardTest"/>
+
     </classes>
   </test>
 </suite>
